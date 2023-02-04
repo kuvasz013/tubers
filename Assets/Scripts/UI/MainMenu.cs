@@ -1,15 +1,14 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class GameController : MonoBehaviour
+public class MainMenu : MonoBehaviour
 {
-    [SerializeField] GameObject playerPrefab;
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame

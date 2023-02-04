@@ -6,7 +6,7 @@ public class PlayerControllerHunor : MonoBehaviour
 {
     [SerializeField] private float playerSpeed = 2.0f;
     [SerializeField] private float jumpHeight = 1.0f;
-    [SerializeField]  private float gravityValue = -9.81f;
+    [SerializeField] private float gravityValue = -9.81f;
     [SerializeField] private float minDistanceFromCamera = 7f;
     [SerializeField] private float cameraKnockbackStrength = 7f;
 
