@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float accelerationAir;
     [SerializeField] private float maxVelocity;
     [SerializeField] private float jumpHeight;
+    [SerializeField] private float turnSpeed;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private float damping;
@@ -49,6 +50,7 @@ public class PlayerController : MonoBehaviour
         if (_moveAction.IsPressed() && velocityXZ.magnitude <= maxVelocity)
         {
             _rb.AddForce(new Vector3(-_movementVector.y, 0, _movementVector.x) * (GetGrounded() ? acceleration : accelerationAir));
+            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_rb.velocity.normalized), Time.deltaTime * turnSpeed);
         }
 
         if (_isJump && GetGrounded())
