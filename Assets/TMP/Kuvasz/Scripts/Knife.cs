@@ -5,12 +5,6 @@ public class Knife : MonoBehaviour
     [SerializeField] private float speed = 1;
     public bool isMoving = false;
 
-    private void Start()
-    {
-        // Start knife here
-        isMoving = true;
-    }
-
     void FixedUpdate()
     {
         if (!isMoving) return;
