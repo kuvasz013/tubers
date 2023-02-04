@@ -2,7 +2,8 @@ using UnityEngine;
 
 public class Knife : MonoBehaviour
 {
-    [SerializeField] private float speed = 1;
+    [SerializeField] private float speed;
+
     public bool isMoving = false;
 
     void FixedUpdate()
