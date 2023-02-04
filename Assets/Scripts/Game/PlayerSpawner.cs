@@ -36,14 +36,14 @@ public class PlayerSpawner : MonoBehaviour
 
     IEnumerator InstantiatePlayers(float seconds)
     {
-        //PlayerInput.Instantiate(playerPrefab, controlScheme: "wasd", pairWithDevice: Keyboard.current);
-        //yield return new WaitForSeconds(seconds);
-        //PlayerInput.Instantiate(playerPrefab, controlScheme: "arrows", pairWithDevice: Keyboard.current);
+        PlayerInput.Instantiate(playerPrefab, controlScheme: "wasd", pairWithDevice: Keyboard.current);
+        yield return new WaitForSeconds(seconds);
+        PlayerInput.Instantiate(playerPrefab, controlScheme: "arrows", pairWithDevice: Keyboard.current);
 
-        yield return new WaitForSeconds(seconds);
-        PlayerInput.Instantiate(playerPrefab, controlScheme: "controller", pairWithDevice: Gamepad.all[0]);
-        yield return new WaitForSeconds(seconds);
-        PlayerInput.Instantiate(playerPrefab, controlScheme: "controller", pairWithDevice: Gamepad.all[1]);
+        //yield return new WaitForSeconds(seconds);
+        //PlayerInput.Instantiate(playerPrefab, controlScheme: "controller", pairWithDevice: Gamepad.all[0]);
+        //yield return new WaitForSeconds(seconds);
+        //PlayerInput.Instantiate(playerPrefab, controlScheme: "controller", pairWithDevice: Gamepad.all[1]);
         var allplayers = PlayerInput.all;
     }
 }
