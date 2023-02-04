@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 33126719300456896}
   - component: {fileID: 23811619605454850}
   - component: {fileID: 667794774357888407}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DeepPlate
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 2147483647
   m_IsActive: 1
 --- !u!4 &4803934733476274
 Transform:
@@ -27,7 +27,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1986375670546546}
   m_LocalRotation: {x: 0.00000008146034, y: 0, z: -0, w: 1}
-  m_LocalPosition: {x: -20.504526, y: 245.28233, z: 399.79373}
+  m_LocalPosition: {x: 59.068073, y: 1.694, z: 0.92856383}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
