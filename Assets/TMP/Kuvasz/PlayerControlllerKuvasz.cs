@@ -2,7 +2,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerControlller : MonoBehaviour, Controls.IPlayerActions
+public class PlayerControlllerKuvasz : MonoBehaviour, Controls.IPlayerActions
 {
     [SerializeField] private InputActionAsset asset;
     [SerializeField] private float maxSpeed;

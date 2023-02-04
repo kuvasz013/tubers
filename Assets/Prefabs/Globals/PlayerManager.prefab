@@ -92,4 +92,4 @@ MonoBehaviour:
   playerPrefab: {fileID: 2020739039969613289, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
   startPosition: {x: 4.2, y: 3.1, z: -9.1}
   endPosition: {x: 4.2, y: 3.1, z: 6.6}
-  spawnTimeInSeconds: 3
+  spawnTimeInSeconds: 0.5
