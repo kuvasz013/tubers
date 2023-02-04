@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
@@ -15,5 +16,20 @@ public class MainMenu : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnPlaySelected()
+    {
+        SceneManager.LoadScene(1);
+    }
+
+    public void OnCreditsSelected()
+    {
+        Debug.Log("Credits");
+    }
+
+    public void OnQuitSelected()
+    {
+        Application.Quit();
     }
 }
