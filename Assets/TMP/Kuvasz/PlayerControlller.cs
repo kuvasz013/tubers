@@ -7,7 +7,6 @@ public class PlayerControlller : MonoBehaviour, Controls.IPlayerActions
     [SerializeField] private InputActionAsset asset;
     [SerializeField] private float maxSpeed;
     [SerializeField] private float minDistanceFromCamera;
-    [SerializeField] private GroundCheck groundCheck;
 
     private Rigidbody _rb;
     private InputAction _moveAction;
@@ -24,7 +23,7 @@ public class PlayerControlller : MonoBehaviour, Controls.IPlayerActions
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        if (!context.performed || !groundCheck.onGround) return;
+        if (!context.performed) return;
         _rb.AddForce(new Vector3(0f, 600f, 0f));
     }
 
