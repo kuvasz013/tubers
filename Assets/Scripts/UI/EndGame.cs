@@ -42,7 +42,6 @@ public class EndGame : MonoBehaviour
             case TuberType.NONE:
             default:
                 title.text = ":( You didn’t make it. But at least the borscht is perfect, and Grandma is happy.";
-                veggiePics[4].SetActive(true);
                 break;
         }
 
