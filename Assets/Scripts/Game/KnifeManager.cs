@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class KnifeManager : MonoBehaviour
 {
     [SerializeField] private float secondsPerKnife;
@@ -18,9 +19,11 @@ public class KnifeManager : MonoBehaviour
     private Coroutine _knifeCoroutine;
     private readonly IList<GameObject> _knives = new List<GameObject>();
     private bool _knifeMirrored = false;
+    private AudioSource source;
 
     private void Start()
     {
+        source = GetComponent<AudioSource>();
         StartKnives();
     }
 
@@ -48,20 +51,22 @@ public class KnifeManager : MonoBehaviour
 
             if (_knifeMirrored)
             {
-                knife.transform.SetPositionAndRotation(transform.position + new Vector3(0, knifeHeight, -9), Quaternion.Euler(0, 90, 0));
+                knife.transform.SetPositionAndRotation(killPlane.transform.position + new Vector3(0, knifeHeight, -9), Quaternion.Euler(0, 90, 0));
             } else
             {
-                knife.transform.SetPositionAndRotation(transform.position + new Vector3(0, knifeHeight, 9), Quaternion.Euler(0, -90, 0));
+                knife.transform.SetPositionAndRotation(killPlane.transform.position + new Vector3(0, knifeHeight, 9), Quaternion.Euler(0, -90, 0));
             }
 
             _knifeMirrored = !_knifeMirrored;
 
+            source.Play();
             knife.transform.DOMoveY(knifeTarget, knifeStrikeSeconds).OnComplete(() =>
             {
                 knife.transform.DOMoveY(knifeHeight, knifeStrikeSeconds);
                 if (_knives.Count <= keepKnifes) return;
-                Destroy(_knives[0]);
+                var knifeToRemove = _knives[0];
                 _knives.RemoveAt(0);
+                Destroy(knifeToRemove);
             });
             yield return new WaitForSeconds(secondsPerKnife);
         }
