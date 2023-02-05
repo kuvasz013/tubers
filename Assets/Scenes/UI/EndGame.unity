@@ -337,8 +337,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: WINS!
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d05751e47a62a104cb3f8f10d7633159, type: 2}
+  m_sharedMaterial: {fileID: 374094124100579543, guid: d05751e47a62a104cb3f8f10d7633159, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -946,6 +946,63 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 954805211}
   m_CullTransparentMesh: 1
+--- !u!1001 &1301840798
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 5952611731539931780, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_Name
+      value: MusicManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_RootOrder
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8872531517033378478, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 5efb82f25adb02a47af9f5bd65c8b621, type: 3}
 --- !u!1 &1576256071
 GameObject:
   m_ObjectHideFlags: 0
@@ -1111,8 +1168,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: VEGETABLE
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: d05751e47a62a104cb3f8f10d7633159, type: 2}
+  m_sharedMaterial: {fileID: 374094124100579543, guid: d05751e47a62a104cb3f8f10d7633159, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

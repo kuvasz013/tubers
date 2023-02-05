@@ -78,11 +78,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    public void Kill(int playerID)
+    {
+        var player = Players.First(x => x.playerID == playerID);
+        player.isDead = true;
+        player.playerInput.gameObject.GetComponent<PlayerController>().Disable();
+
+        if (Players.All(x => x.isDead))
+        {
+            winner = TuberType.NONE;
+            SceneManager.LoadScene(3);
+        }
+    }
+
     private void Spawn(PlayerConfig config, Vector3 position)
     {
         var player = PlayerInput.Instantiate(playerPrefabs[(int)config.tuberType], controlScheme: config.controlScheme, pairWithDevice: config.inputDevice);
         player.transform.SetPositionAndRotation(position, Quaternion.LookRotation(Vector3.forward));
         config.playerInput = player;
+        config.playerInput.gameObject.GetComponent<PlayerController>().playerId = config.playerID;
         Debug.Log($"Spawn Player{config.playerID}, TuberType: {config.tuberType}, ControlScheme: {config.controlScheme}");
         Players.Add(config);
     }
