@@ -12,7 +12,10 @@ public class EndGame : MonoBehaviour
 
     private void Start()
     {
-        winner = FindObjectOfType<GameManager>().winner;
+        var manager = FindObjectOfType<GameManager>();
+        if (manager != null) {
+            winner = TuberType.NONE;
+        }
 
         switch (winner)
         {
@@ -32,6 +35,7 @@ public class EndGame : MonoBehaviour
                 title.text = "Leek";
                 veggiePics[3].SetActive(true);
                 break;
+            case TuberType.NONE:
             default:
                 title.text = "Grandma";
                 veggiePics[4].SetActive(true);

@@ -2,12 +2,24 @@ using UnityEngine;
 
 public class KillerTrigger : MonoBehaviour
 {
+    public bool isFallSound = false;
+
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            Debug.Log(collider.gameObject.name + " died!");
-            Destroy(collider.gameObject);
+            var playerID = collider.gameObject.GetComponent<PlayerController>().playerId;
+            var audio = collider.gameObject.GetComponent<PlayerAudio>();
+
+            if (isFallSound)
+            {
+                audio.PlayFall();
+            } else
+            {
+                audio.PlayDeath();
+            }
+
+            FindObjectOfType<GameManager>().Kill(playerID);
         }
     }
 }
