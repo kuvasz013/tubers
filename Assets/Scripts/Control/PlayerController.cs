@@ -1,4 +1,3 @@
-using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -38,6 +37,7 @@ public class PlayerController : MonoBehaviour
     {
         if (context.action.triggered && GetGrounded())
         {
+            _audio.PlayJump();
             _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         }
     }
