@@ -11,26 +11,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> playerPrefabs;
 
     [HideInInspector]
-    public IList<PlayerConfig> PlayersConfigs { get; set; } = new List<PlayerConfig>() {
-        new PlayerConfig()
-        {
-            playerID = 0,
-            controlScheme = "controller",
-            inputDevice = Gamepad.all[0],
-            tuberType = TuberType.Potato,
-        },
-        new PlayerConfig()
-        {
-            playerID = 1,
-            controlScheme = "wasd",
-            inputDevice = Keyboard.current,
-            tuberType = TuberType.Scallion,
-        },
-    };
+    public IList<PlayerConfig> PlayersConfigs { get; set; } = new List<PlayerConfig>();
 
     public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>();
 
     [HideInInspector] public TuberType winner;
+    private bool isLoaded = false;
+    static private TuberType[] tuberTypes = new TuberType[] { TuberType.Potato, TuberType.Carrot, TuberType.Beet, TuberType.Scallion };
+
 
 
     private void Awake()
@@ -49,7 +37,54 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name.StartsWith("Level")) SpawnAll();
+        if (scene.name.StartsWith("Level") && !isLoaded)
+        {
+            isLoaded = true;
+            if (PlayersConfigs == null || PlayersConfigs.Count == 0)
+            {
+                Debug.Log("PlayerConfigs empty, faling back");
+                PlayersConfigs = new List<PlayerConfig>()
+                {
+                    new PlayerConfig()
+                    {
+                        playerID = 0,
+                        controlScheme = "arrows",
+                        inputDevice = Keyboard.current,
+                        tuberType = tuberTypes[(int) Mathf.Floor(UnityEngine.Random.value * 4)],
+                    },
+                    new PlayerConfig()
+                    {
+                        playerID = 1,
+                        controlScheme = "wasd",
+                        inputDevice = Keyboard.current,
+                        tuberType = tuberTypes[(int) Mathf.Floor(UnityEngine.Random.value * 4)],
+                    },
+                };
+
+                if (Gamepad.all.Count >= 1)
+                {
+                    PlayersConfigs.Add(new PlayerConfig()
+                    {
+                        playerID = 2,
+                        controlScheme = "controller",
+                        inputDevice = Gamepad.all[0],
+                        tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
+                    });
+                }
+
+                if (Gamepad.all.Count >= 2)
+                {
+                    PlayersConfigs.Add(new PlayerConfig()
+                    {
+                        playerID = 3,
+                        controlScheme = "controller",
+                        inputDevice = Gamepad.all[1],
+                        tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
+                    });
+                }
+            }
+            SpawnAll();
+        }
     }
 
     public void SetInputEnabled(bool enabled)
@@ -87,7 +122,7 @@ public class GameManager : MonoBehaviour
         if (Players.All(x => x.isDead))
         {
             winner = TuberType.NONE;
-            SceneManager.LoadScene(3);
+            SceneManager.LoadScene("EndGame");
         }
     }
 

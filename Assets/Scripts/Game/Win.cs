@@ -47,7 +47,7 @@ public class Win : MonoBehaviour
 
         yield return new WaitForSeconds(4f);
         manager.SetInputEnabled(true);
-        SceneManager.LoadScene(3);
-        yield return null;
+        Debug.Log("" + winner + manager.winner);
+        SceneManager.LoadScene("EndGame");
     }
 }

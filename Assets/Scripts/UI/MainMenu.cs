@@ -5,7 +5,7 @@ public class MainMenu : MonoBehaviour
 {
     public void OnPlaySelected()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(2 + (int)Mathf.Floor(Random.value * 3));
     }
 
     public void OnCreditsSelected()

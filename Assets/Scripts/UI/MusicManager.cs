@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -8,7 +6,6 @@ public class MusicManager : MonoBehaviour
 {
     [SerializeField] AudioClip menu;
     [SerializeField] AudioClip level;
-
     [SerializeField] private AudioSource source;
 
     private void Awake()

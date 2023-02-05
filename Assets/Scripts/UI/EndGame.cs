@@ -13,9 +13,15 @@ public class EndGame : MonoBehaviour
     private void Start()
     {
         var manager = FindObjectOfType<GameManager>();
+
+        Debug.Log("EG" + manager?.winner);
+
         if (manager != null) {
             winner = TuberType.NONE;
         }
+
+
+        Debug.Log(winner);
 
         switch (winner)
         {
