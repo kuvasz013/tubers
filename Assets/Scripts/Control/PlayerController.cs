@@ -12,17 +12,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private float damping;
+    [SerializeField] public TuberType tuberType;
 
     private Rigidbody _rb;
     private Vector2 _movementVector = Vector2.zero;
     private InputAction _moveAction;
-    private InputAction _jumpAction;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
-        _jumpAction = GetComponent<PlayerInput>().actions.FindAction("Jump");
     }
 
     public void OnMove(InputAction.CallbackContext context)
