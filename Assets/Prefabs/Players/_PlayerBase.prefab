@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 7323164354131980601}
   m_Layer: 0
   m_Name: _PlayerBase
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,12 +109,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 083305f72d726fa499ff32f166f6983a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  acceleration: 150
+  acceleration: 250
   accelerationAir: 50
-  maxVelocity: 10
-  jumpForce: 20
+  maxVelocity: 15
+  jumpForce: 25
   groundCheck: {fileID: 7188353467301350387}
-  groundCheckDistance: 0.3
+  groundCheckDistance: 0.4
   damping: 5
 --- !u!54 &7323164354131980601
 Rigidbody:

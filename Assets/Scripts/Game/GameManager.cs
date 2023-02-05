@@ -15,16 +15,16 @@ public class GameManager : MonoBehaviour
         new PlayerConfig()
         {
             playerID = 0,
-            controlScheme = "wasd",
-            inputDevice = Keyboard.current,
-            tuberType = TuberType.Carrot,
+            controlScheme = "controller",
+            inputDevice = Gamepad.all[0],
+            tuberType = TuberType.Potato,
         },
         new PlayerConfig()
         {
             playerID = 1,
-            controlScheme = "arrows",
+            controlScheme = "wasd",
             inputDevice = Keyboard.current,
-            tuberType = TuberType.Beet,
+            tuberType = TuberType.Scallion,
         },
     };
 
