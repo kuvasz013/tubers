@@ -10,11 +10,28 @@ public class GameManager : MonoBehaviour
     [Header("DO NOT CHANGE THE ORDER HERE")]
     [SerializeField] private List<GameObject> playerPrefabs;
 
-    [HideInInspector] public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>();
+    [HideInInspector]
+    public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>() {
+        new PlayerConfig()
+        {
+            playerID = 0,
+            controlScheme = "wasd",
+            inputDevice = Keyboard.current,
+            tuberType = TuberType.Carrot,
+        },
+        new PlayerConfig()
+        {
+            playerID = 1,
+            controlScheme = "arrows",
+            inputDevice = Keyboard.current,
+            tuberType = TuberType.Beet,
+        },
+    };
 
 
     private void Awake()
     {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         var objs = FindObjectsOfType<GameManager>();
         if (objs.Length > 0)
         {
@@ -26,11 +43,6 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    private void Start()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         if (scene.name.StartsWith("Level")) SpawnAll();
@@ -38,7 +50,8 @@ public class GameManager : MonoBehaviour
 
     public void SetInputEnabled(bool enabled)
     {
-        foreach(var p in Players) { p.playerInput.enabled= enabled; }
+        foreach (var p in Players) { p.playerInput.enabled = enabled; }
+        Debug.Log($"Set all input to enabled: {enabled}");
     }
 
     private void SpawnAll()
@@ -48,7 +61,7 @@ public class GameManager : MonoBehaviour
 
         for (var index = 0; index < Players.Count; index++)
         {
-            positions.Add(new Vector3(0, 0, 20 / (Players.Count + 1) * (index + 1)));
+            positions.Add(new Vector3(0, 0, -10 + 20 / (Players.Count + 1) * (index + 1)));
         }
 
         var rnd = new System.Random();
@@ -66,6 +79,6 @@ public class GameManager : MonoBehaviour
         var player = PlayerInput.Instantiate(playerPrefabs[(int)config.tuberType], controlScheme: config.controlScheme, pairWithDevice: config.inputDevice);
         player.transform.SetPositionAndRotation(position, Quaternion.LookRotation(Vector3.forward));
         config.playerInput = player;
-        Players.Add(config);
+        Debug.Log($"Spawn Player{config.playerID}, TuberType: {config.tuberType}, ControlScheme: {config.controlScheme}");
     }
 }
