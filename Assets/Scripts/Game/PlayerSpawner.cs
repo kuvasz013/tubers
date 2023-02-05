@@ -1,10 +1,11 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerSpawner : MonoBehaviour
 {
-    [SerializeField] GameObject playerPrefab;
+    [SerializeField] List<GameObject> playerPrefabs;
     [SerializeField] Vector3 startPosition;
     [SerializeField] Vector3 endPosition;
     [SerializeField] float spawnTimeInSeconds;
@@ -36,8 +37,8 @@ public class PlayerSpawner : MonoBehaviour
 
     IEnumerator InstantiatePlayers(float seconds)
     {
-        PlayerInput.Instantiate(playerPrefab, controlScheme: "wasd", pairWithDevice: Keyboard.current);
+        PlayerInput.Instantiate(playerPrefabs[(int)Mathf.Floor(Random.value * playerPrefabs.Count)], controlScheme: "wasd", pairWithDevice: Keyboard.current);
         yield return new WaitForSeconds(seconds);
-        PlayerInput.Instantiate(playerPrefab, controlScheme: "arrows", pairWithDevice: Keyboard.current);
+        PlayerInput.Instantiate(playerPrefabs[(int)Mathf.Floor(Random.value * playerPrefabs.Count)], controlScheme: "arrows", pairWithDevice: Keyboard.current);
     }
 }

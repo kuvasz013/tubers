@@ -1347,6 +1347,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 3629874808507801719, guid: fa90dfce69f9d53419a2f3a61cad6214, type: 3}
+      propertyPath: playerPrefab.Array.size
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 5182729256200178896, guid: fa90dfce69f9d53419a2f3a61cad6214, type: 3}
       propertyPath: m_Name
       value: Globals
