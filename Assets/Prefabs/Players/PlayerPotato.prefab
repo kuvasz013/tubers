@@ -91,6 +91,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: fall
+      value: 
+      objectReference: {fileID: 8300000, guid: ec7fdd5e10247b342a17e30cf8d6aee7, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: jump
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a35324ea131a5947b5fafcac2db3587, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: death
+      value: 
+      objectReference: {fileID: 8300000, guid: 6a40ee385f15df742b61ae1b82bda009, type: 3}
     - target: {fileID: 2020739039969613289, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
       propertyPath: m_Name
       value: PlayerPotato

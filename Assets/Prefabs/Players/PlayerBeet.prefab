@@ -91,6 +91,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: fall
+      value: 
+      objectReference: {fileID: 8300000, guid: 8e215078b4e5ecc46820f341e0fda567, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: jump
+      value: 
+      objectReference: {fileID: 8300000, guid: fc2f78a571f3eea4d85a96e19dc5daeb, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: death
+      value: 
+      objectReference: {fileID: 8300000, guid: 997107e7b0be1af4c9993f72eb8519f7, type: 3}
     - target: {fileID: 2020739039969613289, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
       propertyPath: m_Name
       value: PlayerBeet

@@ -91,6 +91,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: fall
+      value: 
+      objectReference: {fileID: 8300000, guid: 54c873ca0c4796d46a74802f63d228ff, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: jump
+      value: 
+      objectReference: {fileID: 8300000, guid: c1f4a5bda2702164aa6bd03c1dec68f6, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: death
+      value: 
+      objectReference: {fileID: 8300000, guid: ce5ac70e1807400479258484d381e7c5, type: 3}
     - target: {fileID: 2020739039969613289, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
       propertyPath: m_Name
       value: PlayerCarrot
