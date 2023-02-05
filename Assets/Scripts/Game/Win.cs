@@ -13,6 +13,7 @@ public class Win : MonoBehaviour
 
     private AudioSource source;
     private bool win;
+    private TuberType winner;
 
     private void Start()
     {
@@ -28,12 +29,12 @@ public class Win : MonoBehaviour
             animator.SetTrigger("CloseLid");
             var player = other.gameObject;
             var controller = player.GetComponent<PlayerController>();
-            var routine = WinCoroutine(controller.tuberType);
-            StartCoroutine(routine);
+            winner = controller.tuberType;
+            StartCoroutine(nameof(WinCoroutine));
         }
     }
 
-    private IEnumerator WinCoroutine(TuberType winner)
+    private IEnumerator WinCoroutine()
     {
         FindObjectOfType<KnifeManager>().StopKnives();
         manager.SetInputEnabled(false);
@@ -47,7 +48,8 @@ public class Win : MonoBehaviour
 
         yield return new WaitForSeconds(4f);
         manager.SetInputEnabled(true);
-        SceneManager.LoadScene(3);
+        Debug.Log("DDD: " +winner);
+        SceneManager.LoadScene("EndGame");
         yield return null;
     }
 }

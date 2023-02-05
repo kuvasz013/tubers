@@ -22,18 +22,6 @@ public class TuberSelector : MonoBehaviour
     static private TuberType[] tuberTypes = new TuberType[] {TuberType.Potato, TuberType.Carrot, TuberType.Beet, TuberType.Scallion};
     static private int _i = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     public void OnRightPressed()
     {
         OnTuberChanged(true);

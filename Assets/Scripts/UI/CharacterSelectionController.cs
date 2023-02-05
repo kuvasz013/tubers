@@ -14,15 +14,16 @@ public class CharacterSelectionController : MonoBehaviour
     [SerializeField] private Button schemeButtonTemplate;
     [SerializeField] private GameObject tuberSelectorsParent;
     [SerializeField] private GameObject tuberSelectorPrefab;
-    [SerializeField] private GameManager gameManager;
 
     private List<string> _controlSchemes;
     private List<string> _selectedControlSchemes;
     private List<TuberSelector> _tuberSelectors;
+    private GameManager _gameManager;
 
     // Start is called before the first frame update
     void Start()
     {
+        _gameManager = FindObjectOfType<GameManager>();
         _tuberSelectors = new List<TuberSelector>();
         _selectedControlSchemes = new List<string>();
         _controlSchemes = GetAvailableControlSchemes();
@@ -108,6 +109,8 @@ public class CharacterSelectionController : MonoBehaviour
             playerConfigs.Add(tuberSelector.GetPlayerConfig(controllersInUse));
             if (tuberSelector.controlScheme == "controller") ++controllersInUse;
         }
-        gameManager.PlayersConfigs= playerConfigs;
+        _gameManager.PlayersConfigs= playerConfigs;
+
+        SceneManager.LoadScene(2 + (int)Mathf.Floor(Random.value * 3));
     }
 }
