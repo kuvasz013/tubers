@@ -12,7 +12,10 @@ public class EndGame : MonoBehaviour
 
     private void Start()
     {
-        winner = FindObjectOfType<GameManager>().winner;
+        var manager = FindObjectOfType<GameManager>();
+        if (manager != null) {
+            winner = TuberType.NONE;
+        }
 
         switch (winner)
         {

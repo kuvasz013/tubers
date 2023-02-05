@@ -21,7 +21,6 @@ public class KnifeManager : MonoBehaviour
     private bool _knifeMirrored = false;
     private AudioSource source;
 
-
     private void Start()
     {
         source = GetComponent<AudioSource>();
@@ -65,8 +64,9 @@ public class KnifeManager : MonoBehaviour
             {
                 knife.transform.DOMoveY(knifeHeight, knifeStrikeSeconds);
                 if (_knives.Count <= keepKnifes) return;
-                Destroy(_knives[0]);
+                var knifeToRemove = _knives[0];
                 _knives.RemoveAt(0);
+                Destroy(knifeToRemove);
             });
             yield return new WaitForSeconds(secondsPerKnife);
         }
