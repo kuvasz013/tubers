@@ -91,6 +91,18 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: fall
+      value: 
+      objectReference: {fileID: 8300000, guid: 29a5b7da56aa3814eabd6704b405ec74, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: jump
+      value: 
+      objectReference: {fileID: 8300000, guid: 2f8c10a5cfcf7664d872d44d7138374b, type: 3}
+    - target: {fileID: 1317812130356748366, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: death
+      value: 
+      objectReference: {fileID: 8300000, guid: b7e6a4f315d9fa14294ba93e5bbb7444, type: 3}
     - target: {fileID: 2020739039969613289, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
       propertyPath: m_Name
       value: PlayerScallion

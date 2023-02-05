@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8481165563080020198}
   - component: {fileID: 8481165563080020199}
-  - component: {fileID: 8481165563080020193}
   m_Layer: 0
   m_Name: PlayerManager
   m_TagString: Untagged
@@ -77,23 +76,3 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &8481165563080020193
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8481165563080020196}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 08647ab91d80a5c4bb42dc3a13d1fabf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  playerPrefabs:
-  - {fileID: 1623926185934677784, guid: c14d55ee3beb9b445b0c52799448560e, type: 3}
-  - {fileID: 1623926185934677784, guid: c16a135035037374e9b8105bafc6de75, type: 3}
-  - {fileID: 1623926185934677784, guid: a1a45aaeb5da05341ab23f83a702d63b, type: 3}
-  - {fileID: 1623926185934677784, guid: 684504c04b0600c448f9e421f2ec0162, type: 3}
-  startPosition: {x: 4.2, y: 3.1, z: -9.1}
-  endPosition: {x: 4.2, y: 3.1, z: 6.6}
-  spawnTimeInSeconds: 0.5

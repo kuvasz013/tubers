@@ -20,6 +20,8 @@ public class MusicManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -31,6 +33,7 @@ public class MusicManager : MonoBehaviour
             source.Play();
         } else if (!source.isPlaying)
         {
+            source.Stop();
             source.clip= menu;
             source.Play();
         }

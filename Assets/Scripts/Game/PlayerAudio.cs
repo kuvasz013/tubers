@@ -19,19 +19,16 @@ public class PlayerAudio : MonoBehaviour
     {
         source.clip = jump;
         source.Play();
-        source.clip = null;
     }
 
     public void PlayDeath()
     {
         source.clip = death;
         source.Play();
-        source.clip = null;
     }
     public void PlayFall()
     {
         source.clip = fall;
         source.Play();
-        source.clip = null;
     }
 }
