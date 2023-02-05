@@ -37,9 +37,9 @@ public class KnifeManager : MonoBehaviour
 
     private IEnumerator KnifeRoutine()
     {
-        killPlane.SetActive(false);
+        killPlane?.SetActive(false);
         yield return new WaitForSeconds(firstKnifeDelay);
-        killPlane.SetActive(true);
+        killPlane?.SetActive(true);
 
         while (true)
         {
