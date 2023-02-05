@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class TuberSelector : MonoBehaviour
@@ -13,11 +14,11 @@ public class TuberSelector : MonoBehaviour
     [SerializeField] private Sprite scallionImage;
     public TextMeshProUGUI playerName;
     public TextMeshProUGUI controlSchemeText;
-    public Image tuberImage; 
+    public Image tuberImage;
+    public int playerId;
 
     static private TuberType[] tuberTypes = new TuberType[] {TuberType.Potato, TuberType.Carrot, TuberType.Beet, TuberType.Scallion};
     static private int _i = 0;
-    private TuberType selectedTuberType = tuberTypes[_i];
 
     // Start is called before the first frame update
     void Start()
@@ -44,8 +45,7 @@ public class TuberSelector : MonoBehaviour
     private void OnTuberChanged(bool increment)
     {
         _i = mod(increment ? (_i + 1) : (_i - 1), tuberTypes.Length);
-        selectedTuberType = tuberTypes[_i];
-        tuberImage.sprite = GetSprite(selectedTuberType);
+        tuberImage.sprite = GetSprite(tuberTypes[_i]);
     }
 
     private Sprite GetSprite(TuberType type)
@@ -60,8 +60,30 @@ public class TuberSelector : MonoBehaviour
         }
     }
 
+    public PlayerConfig GetPlayerConfig(int controllersInUse)
+    {
+        return new PlayerConfig()
+        {
+            playerID = playerId,
+            controlScheme = controlScheme,
+            inputDevice = GetInputDevice(controlScheme, controllersInUse),
+            tuberType = tuberTypes[_i],
+        };
+    }
+
     private int mod(int x, int m)
     {
         return (x % m + m) % m;
+    }
+
+    private InputDevice GetInputDevice(string controlScheme, int controllersInUse)
+    {
+        switch (controlScheme) 
+        {
+            case "wasd": return Keyboard.current;
+            case "arrows": return Keyboard.current;
+            case "controller": return Gamepad.all[controllersInUse];
+            default: return null;
+        }
     }
 }

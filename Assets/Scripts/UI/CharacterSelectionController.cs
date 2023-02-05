@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class CharacterSelectionController : MonoBehaviour
@@ -13,12 +14,15 @@ public class CharacterSelectionController : MonoBehaviour
     [SerializeField] private Button schemeButtonTemplate;
     [SerializeField] private GameObject tuberSelectorsParent;
     [SerializeField] private GameObject tuberSelectorPrefab;
+    [SerializeField] private GameManager gameManager;
 
     private List<string> _selectedControlSchemes;
+    private List<TuberSelector> _tuberSelectors;
 
     // Start is called before the first frame update
     void Start()
     {
+        _tuberSelectors = new List<TuberSelector>();
         _selectedControlSchemes = new List<string>();
         var controlSchemes = GetAvailableControlSchemes();
         RenderAvailableControlSchemes(controlSchemes);
@@ -73,14 +77,28 @@ public class CharacterSelectionController : MonoBehaviour
     {
         _selectedControlSchemes.Add(controlScheme);
         Destroy(go);
-        DisplayTuberSelector(_selectedControlSchemes.Count, controlScheme);
+        DisplayTuberSelector(_selectedControlSchemes.Count - 1, controlScheme);
     }
 
     private void DisplayTuberSelector(int playerId, string controlScheme)
     {
-        var tubeSelector = Instantiate(tuberSelectorPrefab, tuberSelectorsParent.transform);
-        tubeSelector.GetComponent<TuberSelector>().playerName.text = "Player " + playerId;
-        tubeSelector.GetComponent<TuberSelector>().controlSchemeText.text = controlScheme;
-        tubeSelector.GetComponent<TuberSelector>().controlScheme = controlScheme;
+        var tuberSelector = Instantiate(tuberSelectorPrefab, tuberSelectorsParent.transform);
+        tuberSelector.GetComponent<TuberSelector>().playerName.text = "Player " + playerId;
+        tuberSelector.GetComponent<TuberSelector>().controlSchemeText.text = controlScheme;
+        tuberSelector.GetComponent<TuberSelector>().controlScheme = controlScheme;
+        tuberSelector.GetComponent<TuberSelector>().playerId = playerId;
+        _tuberSelectors.Add(tuberSelector.GetComponent<TuberSelector>());    }
+
+    public void OnStartGame()
+    {
+        if (_selectedControlSchemes.Count <= 0) return;
+        var playerConfigs = new List<PlayerConfig>();
+        var controllersInUse = 0;
+        foreach (var tuberSelector in _tuberSelectors)
+        {
+            playerConfigs.Add(tuberSelector.GetPlayerConfig(controllersInUse));
+            if (tuberSelector.controlScheme == "controller") ++controllersInUse;
+        }
+        gameManager.PlayersConfigs= playerConfigs;
     }
 }
