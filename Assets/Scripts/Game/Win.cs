@@ -7,9 +7,17 @@ public class Win : MonoBehaviour
 {
     [SerializeField] private Animator animator;
     [SerializeField] private GameManager manager;
+
+    [SerializeField] private AudioClip lidSound;
+    [SerializeField] private AudioClip thudSound;
+
+    private AudioSource source;
     private bool win;
 
-
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -30,6 +38,13 @@ public class Win : MonoBehaviour
         FindObjectOfType<KnifeManager>().StopKnives();
         manager.SetInputEnabled(false);
         manager.winner = winner;
+        source.clip = lidSound;
+        source.Play();
+
+        yield return new WaitForSeconds(0.5f);
+        source.clip = thudSound;
+        source.Play();
+
         yield return new WaitForSeconds(4f);
         manager.SetInputEnabled(true);
         SceneManager.LoadScene(3);

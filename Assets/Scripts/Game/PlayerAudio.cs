@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class PlayerAudio : MonoBehaviour
 {
     [SerializeField] private AudioClip jump;
@@ -8,6 +9,11 @@ public class PlayerAudio : MonoBehaviour
 
 
     private AudioSource source;
+
+    private void Start()
+    {
+        source = GetComponent<AudioSource>();
+    }
 
     public void PlayJump()
     {
