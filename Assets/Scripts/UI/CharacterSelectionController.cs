@@ -10,11 +10,16 @@ public class CharacterSelectionController : MonoBehaviour
 {
 
     [SerializeField] private GameObject devicesParent;
-    [SerializeField] private Button listItemTemplate;
+    [SerializeField] private Button schemeButtonTemplate;
+    [SerializeField] private GameObject tuberSelectorsParent;
+    [SerializeField] private GameObject tuberSelectorTemplate;
+
+    private List<string> _selectedControlSchemes;
 
     // Start is called before the first frame update
     void Start()
     {
+        _selectedControlSchemes = new List<string>();
         var controlSchemes = GetAvailableControlSchemes();
         RenderAvailableControlSchemes(controlSchemes);
         Destroy(devicesParent.transform.GetChild(0).gameObject); // Remove template object
@@ -52,8 +57,9 @@ public class CharacterSelectionController : MonoBehaviour
     {
         foreach (string scheme in controlSchemes) 
         {
-            var listItem = Instantiate(listItemTemplate, devicesParent.transform);
+            var listItem = Instantiate(schemeButtonTemplate, devicesParent.transform);
             listItem.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = scheme;
+            listItem.GetComponent<Button>().onClick.AddListener(() => OnControlSchemeSelected(scheme, listItem.gameObject));
         }
     }
 
@@ -61,5 +67,17 @@ public class CharacterSelectionController : MonoBehaviour
     {
         var es = EventSystem.current;
         es.SetSelectedGameObject(devicesParent.transform.GetChild(1).gameObject, new BaseEventData(es));
+    }
+
+    public void OnControlSchemeSelected(string controlScheme, GameObject go)
+    {
+        _selectedControlSchemes.Add(controlScheme);
+        Destroy(go);
+        DisplayTuberSelector(_selectedControlSchemes.Count, controlScheme);
+    }
+
+    private void DisplayTuberSelector(int playerId, string controlScheme)
+    {
+        tuber
     }
 }
