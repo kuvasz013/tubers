@@ -6,22 +6,20 @@ using UnityEngine.SceneManagement;
 
 public class EndGame : MonoBehaviour
 {
-    private TuberType winner;
     public TextMeshProUGUI title;
     public List<GameObject> veggiePics;
 
     private void Start()
     {
         var manager = FindObjectOfType<GameManager>();
+        TuberType winner;
 
-        Debug.Log("EG" + manager?.winner);
-
-        if (manager != null) {
+        if (manager == null) {
             winner = TuberType.NONE;
+        } else
+        {
+            winner = manager.winner;
         }
-
-
-        Debug.Log(winner);
 
         switch (winner)
         {
