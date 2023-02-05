@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerBeet
       objectReference: {fileID: 0}
+    - target: {fileID: 2020739039969613290, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 1709544987583208857}
+    - target: {fileID: 2020739039969613290, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: tuberType
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 7188353467301350387, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.1
@@ -147,3 +155,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36879fc47e33953458ee8596a5d616dc, type: 3}
+--- !u!1 &1709544987583208857 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2422355726309679395, guid: 36879fc47e33953458ee8596a5d616dc, type: 3}
+  m_PrefabInstance: {fileID: 3901359352755272890}
+  m_PrefabAsset: {fileID: 0}

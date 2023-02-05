@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCarrot
       objectReference: {fileID: 0}
+    - target: {fileID: 2020739039969613290, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 7825852429483168958}
+    - target: {fileID: 2020739039969613290, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: tuberType
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 7188353467301350387, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.2
@@ -154,3 +162,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fbafe55f7ec9fd44caded4605f91f16f, type: 3}
+--- !u!1 &7825852429483168958 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4125825982657543760, guid: fbafe55f7ec9fd44caded4605f91f16f, type: 3}
+  m_PrefabInstance: {fileID: 6186507234732272366}
+  m_PrefabAsset: {fileID: 0}

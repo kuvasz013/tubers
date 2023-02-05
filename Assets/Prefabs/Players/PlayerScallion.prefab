@@ -11,6 +11,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerScallion
       objectReference: {fileID: 0}
+    - target: {fileID: 2020739039969613290, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: mesh
+      value: 
+      objectReference: {fileID: 7339146068555596803}
+    - target: {fileID: 2020739039969613290, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
+      propertyPath: tuberType
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7188353467301350387, guid: 6ea72fdc2acc3ce45ad9ac62b6e960c5, type: 3}
       propertyPath: m_LocalPosition.y
       value: 0.1
@@ -142,3 +150,8 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ffb976274258b1346b4409068657d2d3, type: 3}
+--- !u!1 &7339146068555596803 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4845604969239576181, guid: ffb976274258b1346b4409068657d2d3, type: 3}
+  m_PrefabInstance: {fileID: 2803190038246095478}
+  m_PrefabAsset: {fileID: 0}

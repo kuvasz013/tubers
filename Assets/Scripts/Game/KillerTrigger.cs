@@ -6,8 +6,8 @@ public class KillerTrigger : MonoBehaviour
     {
         if (collider.gameObject.CompareTag("Player"))
         {
-            Debug.Log(collider.gameObject.name + " died!");
-            Destroy(collider.gameObject);
+            var playerID = collider.gameObject.GetComponent<PlayerController>().playerId;
+            FindObjectOfType<GameManager>().Kill(playerID);
         }
     }
 }

@@ -32,6 +32,7 @@ public class EndGame : MonoBehaviour
                 title.text = "Leek";
                 veggiePics[3].SetActive(true);
                 break;
+            case TuberType.NONE:
             default:
                 title.text = "Grandma";
                 veggiePics[4].SetActive(true);

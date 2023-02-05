@@ -13,15 +13,20 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private float damping;
     [SerializeField] public TuberType tuberType;
+    [SerializeField] public int playerId;
+
+    [SerializeField] public GameObject mesh;
 
     private Rigidbody _rb;
     private Vector2 _movementVector = Vector2.zero;
     private InputAction _moveAction;
+    private PlayerAudio _audio;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
+        _audio = GetComponent<PlayerAudio>();
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -54,6 +59,11 @@ public class PlayerController : MonoBehaviour
             var force = new Vector3(-_movementVector.y, 0, _movementVector.x) * (GetGrounded() ? acceleration : accelerationAir);
             _rb.AddForce(force);
         }
+    }
+
+    public void Disable()
+    {
+        mesh.SetActive(false);
     }
 
     bool GetGrounded()

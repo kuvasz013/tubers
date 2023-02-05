@@ -17,7 +17,8 @@ public class KillPlane : MonoBehaviour
     {
         if (collision.collider.gameObject.CompareTag("Player"))
         {
-            Destroy(collision.gameObject);
+            var playerID = collision.collider.gameObject.GetComponent<PlayerController>().playerId;
+            FindObjectOfType<GameManager>().Kill(playerID);
         }
     }
 }
