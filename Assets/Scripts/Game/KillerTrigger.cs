@@ -4,9 +4,9 @@ public class KillerTrigger : MonoBehaviour
 {
     private void OnTriggerEnter(Collider collider)
     {
-        Debug.Log(collider.gameObject.name + " died!");
         if (collider.gameObject.CompareTag("Player"))
         {
+            Debug.Log(collider.gameObject.name + " died!");
             Destroy(collider.gameObject);
         }
     }
