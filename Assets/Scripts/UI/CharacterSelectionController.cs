@@ -16,6 +16,7 @@ public class CharacterSelectionController : MonoBehaviour
     [SerializeField] private GameObject tuberSelectorPrefab;
     [SerializeField] private GameManager gameManager;
 
+    private List<string> _controlSchemes;
     private List<string> _selectedControlSchemes;
     private List<TuberSelector> _tuberSelectors;
 
@@ -24,10 +25,10 @@ public class CharacterSelectionController : MonoBehaviour
     {
         _tuberSelectors = new List<TuberSelector>();
         _selectedControlSchemes = new List<string>();
-        var controlSchemes = GetAvailableControlSchemes();
-        RenderAvailableControlSchemes(controlSchemes);
+        _controlSchemes = GetAvailableControlSchemes();
+        RenderAvailableControlSchemes(_controlSchemes);
         Destroy(devicesParent.transform.GetChild(0).gameObject); // Remove template object
-        SelectFirstControlScheme();
+        FocusOnFirstControlScheme();
     }
 
     // Update is called once per frame
@@ -67,7 +68,7 @@ public class CharacterSelectionController : MonoBehaviour
         }
     }
 
-    private void SelectFirstControlScheme()
+    private void FocusOnFirstControlScheme()
     {
         var es = EventSystem.current;
         es.SetSelectedGameObject(devicesParent.transform.GetChild(1).gameObject, new BaseEventData(es));
@@ -77,17 +78,25 @@ public class CharacterSelectionController : MonoBehaviour
     {
         _selectedControlSchemes.Add(controlScheme);
         Destroy(go);
-        DisplayTuberSelector(_selectedControlSchemes.Count - 1, controlScheme);
+        var shouldFocusOnTuberSelectorButton = _selectedControlSchemes.Count == _controlSchemes.Count;
+        if (!shouldFocusOnTuberSelectorButton) FocusOnFirstControlScheme();
+        DisplayTuberSelector(_selectedControlSchemes.Count - 1, controlScheme, shouldFocusOnTuberSelectorButton);
     }
 
-    private void DisplayTuberSelector(int playerId, string controlScheme)
+    private void DisplayTuberSelector(int playerId, string controlScheme, bool shouldFocusOnTuberSelectorButton)
     {
         var tuberSelector = Instantiate(tuberSelectorPrefab, tuberSelectorsParent.transform);
-        tuberSelector.GetComponent<TuberSelector>().playerName.text = "Player " + playerId;
+        tuberSelector.GetComponent<TuberSelector>().playerName.text = "Player " + (playerId + 1);
         tuberSelector.GetComponent<TuberSelector>().controlSchemeText.text = controlScheme;
         tuberSelector.GetComponent<TuberSelector>().controlScheme = controlScheme;
         tuberSelector.GetComponent<TuberSelector>().playerId = playerId;
-        _tuberSelectors.Add(tuberSelector.GetComponent<TuberSelector>());    }
+        if (shouldFocusOnTuberSelectorButton)
+        {
+            tuberSelectorsParent.transform.GetChild(0).GetComponent<TuberSelector>().SetFocusOnButton();
+        }
+        
+        _tuberSelectors.Add(tuberSelector.GetComponent<TuberSelector>());
+    }
 
     public void OnStartGame()
     {

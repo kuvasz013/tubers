@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -12,6 +13,7 @@ public class TuberSelector : MonoBehaviour
     [SerializeField] private Sprite carrotImage;
     [SerializeField] private Sprite beetImage;
     [SerializeField] private Sprite scallionImage;
+    [SerializeField] private Button leftButton;
     public TextMeshProUGUI playerName;
     public TextMeshProUGUI controlSchemeText;
     public Image tuberImage;
@@ -69,6 +71,12 @@ public class TuberSelector : MonoBehaviour
             inputDevice = GetInputDevice(controlScheme, controllersInUse),
             tuberType = tuberTypes[_i],
         };
+    }
+
+    public void SetFocusOnButton()
+    {
+        var es = EventSystem.current;
+        es.SetSelectedGameObject(leftButton.gameObject, new BaseEventData(es));
     }
 
     private int mod(int x, int m)

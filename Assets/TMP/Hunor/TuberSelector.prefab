@@ -978,10 +978,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea2c2830557f20e48b3f313503f20a77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controlScheme: 
   potatoImage: {fileID: 21300000, guid: 3806b02338e77cc4c8c1d39d51b22d02, type: 3}
   carrotImage: {fileID: 21300000, guid: 9a21f1965516b7645996281025bc5709, type: 3}
   beetImage: {fileID: 21300000, guid: 33a4d0287b91b6549b3cd97df83b38da, type: 3}
   scallionImage: {fileID: 21300000, guid: 060dc9fa60dd2fc4e94d5147e5af652a, type: 3}
+  leftButton: {fileID: 5514341934811231488}
   playerName: {fileID: 5514341936005031295}
   controlSchemeText: {fileID: 5514341936032529131}
   tuberImage: {fileID: 5514341934958662895}
+  playerId: 0
