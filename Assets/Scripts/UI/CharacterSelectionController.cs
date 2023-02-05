@@ -12,7 +12,7 @@ public class CharacterSelectionController : MonoBehaviour
     [SerializeField] private GameObject devicesParent;
     [SerializeField] private Button schemeButtonTemplate;
     [SerializeField] private GameObject tuberSelectorsParent;
-    [SerializeField] private GameObject tuberSelectorTemplate;
+    [SerializeField] private GameObject tuberSelectorPrefab;
 
     private List<string> _selectedControlSchemes;
 
@@ -29,7 +29,7 @@ public class CharacterSelectionController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     private List<string> GetAvailableControlSchemes()
@@ -55,10 +55,10 @@ public class CharacterSelectionController : MonoBehaviour
 
     private void RenderAvailableControlSchemes(List<string> controlSchemes)
     {
-        foreach (string scheme in controlSchemes) 
+        foreach (string scheme in controlSchemes)
         {
             var listItem = Instantiate(schemeButtonTemplate, devicesParent.transform);
-            listItem.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = scheme;
+            listItem.GetComponentInChildren<TextMeshProUGUI>().text = scheme;
             listItem.GetComponent<Button>().onClick.AddListener(() => OnControlSchemeSelected(scheme, listItem.gameObject));
         }
     }
@@ -78,6 +78,9 @@ public class CharacterSelectionController : MonoBehaviour
 
     private void DisplayTuberSelector(int playerId, string controlScheme)
     {
-        tuber
+        var tubeSelector = Instantiate(tuberSelectorPrefab, tuberSelectorsParent.transform);
+        tubeSelector.GetComponent<TuberSelector>().playerName.text = "Player " + playerId;
+        tubeSelector.GetComponent<TuberSelector>().controlSchemeText.text = controlScheme;
+        tubeSelector.GetComponent<TuberSelector>().controlScheme = controlScheme;
     }
 }
