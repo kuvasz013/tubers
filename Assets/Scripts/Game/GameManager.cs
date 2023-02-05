@@ -17,14 +17,14 @@ public class GameManager : MonoBehaviour
             playerID = 0,
             controlScheme = "wasd",
             inputDevice = Keyboard.current,
-            tuberType = TuberType.Carrot,
+            tuberType = TuberType.Potato,
         },
         new PlayerConfig()
         {
             playerID = 1,
             controlScheme = "arrows",
             inputDevice = Keyboard.current,
-            tuberType = TuberType.Beet,
+            tuberType = TuberType.Scallion,
         },
     };
 
