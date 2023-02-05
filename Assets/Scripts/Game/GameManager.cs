@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private List<GameObject> playerPrefabs;
 
     [HideInInspector]
-    public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>() {
+    public IList<PlayerConfig> PlayersConfigs { get; set; } = new List<PlayerConfig>() {
         new PlayerConfig()
         {
             playerID = 0,
@@ -28,12 +28,16 @@ public class GameManager : MonoBehaviour
         },
     };
 
+    public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>();
+
+    [HideInInspector] public TuberType winner;
+
 
     private void Awake()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
         var objs = FindObjectsOfType<GameManager>();
-        if (objs.Length > 0)
+        if (objs.Length > 1)
         {
             Destroy(gameObject);
         }
@@ -56,20 +60,20 @@ public class GameManager : MonoBehaviour
 
     private void SpawnAll()
     {
-        if (Players.Count == 0) throw new Exception("There are no PlayerConfigs in the GameManager!");
+        if (PlayersConfigs.Count == 0) throw new Exception("There are no PlayerConfigs in the GameManager!");
         var positions = new List<Vector3>();
 
-        for (var index = 0; index < Players.Count; index++)
+        for (var index = 0; index < PlayersConfigs.Count; index++)
         {
-            positions.Add(new Vector3(0, 0, -10 + 20 / (Players.Count + 1) * (index + 1)));
+            positions.Add(new Vector3(0, 0, -10 + 20 / (PlayersConfigs.Count + 1) * (index + 1)));
         }
 
         var rnd = new System.Random();
         var randomizedPositions = positions.OrderBy(x => rnd.Next()).ToList();
 
-        for (var index = 0; index < Players.Count; index++)
+        for (var index = 0; index < PlayersConfigs.Count; index++)
         {
-            var player = Players[index];
+            var player = PlayersConfigs[index];
             Spawn(player, randomizedPositions[index]);
         }
     }
@@ -80,5 +84,6 @@ public class GameManager : MonoBehaviour
         player.transform.SetPositionAndRotation(position, Quaternion.LookRotation(Vector3.forward));
         config.playerInput = player;
         Debug.Log($"Spawn Player{config.playerID}, TuberType: {config.tuberType}, ControlScheme: {config.controlScheme}");
+        Players.Add(config);
     }
 }
