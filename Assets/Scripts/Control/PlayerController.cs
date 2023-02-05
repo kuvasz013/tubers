@@ -8,21 +8,21 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private float acceleration;
     [SerializeField] private float accelerationAir;
     [SerializeField] private float maxVelocity;
-    [SerializeField] private float jumpHeight;
-    [SerializeField] private float turnSpeed;
+    [SerializeField] private float jumpForce;
     [SerializeField] private Transform groundCheck;
     [SerializeField] private float groundCheckDistance;
     [SerializeField] private float damping;
 
     private Rigidbody _rb;
     private Vector2 _movementVector = Vector2.zero;
-    private bool _isJump = false;
     private InputAction _moveAction;
+    private InputAction _jumpAction;
 
     private void Start()
     {
         _rb = GetComponent<Rigidbody>();
         _moveAction = GetComponent<PlayerInput>().actions.FindAction("Move");
+        _jumpAction = GetComponent<PlayerInput>().actions.FindAction("Jump");
     }
 
     public void OnMove(InputAction.CallbackContext context)
@@ -32,7 +32,10 @@ public class PlayerController : MonoBehaviour
 
     public void OnJump(InputAction.CallbackContext context)
     {
-        _isJump = context.action.triggered;
+        if (context.action.triggered && GetGrounded())
+        {
+            _rb.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        }
     }
 
     void FixedUpdate()
@@ -44,24 +47,19 @@ public class PlayerController : MonoBehaviour
         if (velocityXZ.magnitude >= maxVelocity)
         {
             var dragVector = -velocityXZ * 10f;
-            _rb.AddForce(new Vector3(dragVector.x, 0, dragVector.y));
+            _rb.AddForce(new Vector3(dragVector.x, 0, dragVector.y * 0.5f));
         }
 
         if (_moveAction.IsPressed() && velocityXZ.magnitude <= maxVelocity)
         {
-            _rb.AddForce(new Vector3(-_movementVector.y, 0, _movementVector.x) * (GetGrounded() ? acceleration : accelerationAir));
-            transform.rotation = Quaternion.Lerp(transform.rotation, Quaternion.LookRotation(_rb.velocity.normalized), Time.deltaTime * turnSpeed);
-        }
-
-        if (_isJump && GetGrounded())
-        {
-            _rb.AddForce(new Vector3(0, jumpHeight, 0));
+            var force = new Vector3(-_movementVector.y, 0, _movementVector.x) * (GetGrounded() ? acceleration : accelerationAir);
+            _rb.AddForce(force);
         }
     }
 
     bool GetGrounded()
     {
-        var hits = Physics.RaycastAll(groundCheck.position, -Vector3.up, groundCheckDistance);
-        return hits.Any(c => c.collider.CompareTag("Ground"));
+        var hits = Physics.RaycastAll(groundCheck.position, -Vector3.up, groundCheckDistance, LayerMask.GetMask("Ground"));
+        return hits.Length > 0;
     }
 }
