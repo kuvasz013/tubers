@@ -114,7 +114,7 @@ MonoBehaviour:
   maxVelocity: 10
   jumpForce: 20
   groundCheck: {fileID: 7188353467301350387}
-  groundCheckDistance: 0.3
+  groundCheckDistance: 0.4
   damping: 5
 --- !u!54 &7323164354131980601
 Rigidbody:
