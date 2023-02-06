@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -16,6 +17,9 @@ public class GameManager : MonoBehaviour
     [HideInInspector] public TuberType winner;
     [HideInInspector] public bool levelLoaded;
 
+    [Header("Set this to true when testing level in isolation")]
+    [SerializeField] public bool spawnFallback;
+
     private readonly TuberType[] tuberTypes = new TuberType[] { TuberType.Potato, TuberType.Carrot, TuberType.Beet, TuberType.Scallion };
 
     private void Awake()
@@ -29,17 +33,21 @@ public class GameManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+
+        if(Application.isEditor && spawnFallback)
+        {
+            Debug.Log("Running in Unity Editor, trigger scene loaded event");
+            OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
+        }
     }
 
     private void Start()
     {
-        Debug.Log("GAMEMANGER ADD LISTENRE");
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        Debug.Log("ONSCNE LOADEDEEEEEEEEEEEEEEEEEEE");
         if (!scene.name.StartsWith("Level"))
         {
             ResetManager();

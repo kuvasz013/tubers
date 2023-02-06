@@ -31,6 +31,7 @@ public class EndGame : MonoBehaviour
         }
         else
         {
+            Debug.Log($"{winner} | {tuberNames[(int)winner]} | {winnerSprites[(int)winner].name}");
             loseText.SetActive(false);
             winText.SetActive(true);
             soupImg.sprite = soupSprites[(int)winner];
