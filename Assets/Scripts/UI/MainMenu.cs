@@ -14,6 +14,7 @@ public class MainMenu : MonoBehaviour
         loader.SetActive(true);
         spinner.StartSpinner();
         SceneManager.LoadSceneAsync(2 + (int)Mathf.Floor(Random.value * 3));
+        //SceneManager.LoadScene("CharacterSelector");
     }
 
     public void OnCreditsSelected()
