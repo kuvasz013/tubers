@@ -18,6 +18,7 @@ public class Win : MonoBehaviour
     private void Start()
     {
         source = GetComponent<AudioSource>();
+        manager = FindObjectOfType<GameManager>();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -39,16 +40,17 @@ public class Win : MonoBehaviour
         FindObjectOfType<KnifeManager>().StopKnives();
         manager.SetInputEnabled(false);
         manager.winner = winner;
+
+        yield return new WaitForSeconds(1f);
         source.clip = lidSound;
         source.Play();
 
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         source.clip = thudSound;
         source.Play();
 
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         manager.SetInputEnabled(true);
-        Debug.Log("DDD: " +winner);
         SceneManager.LoadScene("EndGame");
         yield return null;
     }

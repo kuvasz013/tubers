@@ -3,54 +3,48 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class EndGame : MonoBehaviour
 {
-    public TextMeshProUGUI title;
-    public List<GameObject> veggiePics;
+    public GameObject winText;
+    public GameObject loseText;
+    public TextMeshProUGUI winnerName;
+    public Image soupImg;
+    public Image winnerImg;
+
+    [HeaderAttribute("DO NOT MODIFY THE ORDER")]
+    public List<Sprite> soupSprites;
+    public List<Sprite> winnerSprites;
+    public List<string> tuberNames;
 
     private void Start()
     {
         var manager = FindObjectOfType<GameManager>();
-        TuberType winner;
+        var winner = manager == null ? TuberType.NONE : manager.winner;
 
-        if (manager == null) {
-            winner = TuberType.NONE;
-        } else
+        if (winner == TuberType.NONE)
         {
-            winner = manager.winner;
+            winText.SetActive(false);
+            loseText.SetActive(true);
+            soupImg.sprite = soupSprites[(int)TuberType.NONE];
         }
-        
-        switch (winner)
+        else
         {
-            case TuberType.Potato:
-                title.text = "You’ve made it, Pot Ato! You are a free veggie now!";
-                veggiePics[0].SetActive(true);
-                break;
-            case TuberType.Carrot:
-                title.text = "You’ve made it, C’Arrot! You are a free veggie now!";
-                veggiePics[1].SetActive(true);
-                break;
-            case TuberType.Beet:
-                title.text = "You’ve made it, B.T. Root! You are a free veggie now!";
-                veggiePics[2].SetActive(true);
-                break;
-            case TuberType.Scallion:
-                title.text = "You’ve made it, L33k! You are a free veggie now!";
-                veggiePics[3].SetActive(true);
-                break;
-            case TuberType.NONE:
-            default:
-                title.text = ":( You didn’t make it. But at least the borscht is perfect, and Grandma is happy.";
-                break;
-        }
+            Debug.Log($"{winner} | {tuberNames[(int)winner]} | {winnerSprites[(int)winner].name}");
+            loseText.SetActive(false);
+            winText.SetActive(true);
+            soupImg.sprite = soupSprites[(int)winner];
 
-        StartCoroutine(End());
+            winnerImg.gameObject.SetActive(true);
+            winnerName.text = tuberNames[(int)winner];
+            winnerImg.sprite = winnerSprites[(int)winner];
+            winnerImg.SetNativeSize();
+        }
     }
 
-    private IEnumerator End()
+    public void OnBackToMenu()
     {
-        yield return new WaitForSeconds(5f);
-        //SceneManager.LoadScene(0);
+        SceneManager.LoadScene(0);
     }
 }

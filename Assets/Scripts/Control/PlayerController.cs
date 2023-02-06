@@ -1,8 +1,9 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static Controls;
 
 [RequireComponent(typeof(Rigidbody), typeof(PlayerInput))]
-public class PlayerController : MonoBehaviour
+public class PlayerController : MonoBehaviour, IPlayerActions
 {
     [SerializeField] private float acceleration;
     [SerializeField] private float accelerationAir;

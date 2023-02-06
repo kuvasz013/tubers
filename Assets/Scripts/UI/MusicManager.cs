@@ -10,8 +10,7 @@ public class MusicManager : MonoBehaviour
 
     private void Awake()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-        var objs = FindObjectsOfType<GameManager>();
+        var objs = FindObjectsOfType<MusicManager>();
         if (objs.Length > 1)
         {
             Destroy(gameObject);
@@ -20,7 +19,11 @@ public class MusicManager : MonoBehaviour
         {
             DontDestroyOnLoad(gameObject);
         }
+    }
 
+    private void Start()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
         OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
     }
 
@@ -28,12 +31,14 @@ public class MusicManager : MonoBehaviour
     {
         if (scene.name.StartsWith("Level"))
         {
-            source.Stop();
+            if (source.clip == level) return;
+            Debug.Log("Start level music");
             source.clip = level;
             source.Play();
-        } else if (!source.isPlaying)
+        } else
         {
-            source.Stop();
+            if (source.clip == menu) return;
+            Debug.Log("Start menu music");
             source.clip= menu;
             source.Play();
         }
