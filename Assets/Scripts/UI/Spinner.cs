@@ -3,11 +3,9 @@ using UnityEngine;
 
 public class Spinner : MonoBehaviour
 {
-    private Sequence seq;
-
-    void Start()
+    public void StartSpinner()
     {
-        seq = DOTween.Sequence();
+        var seq = DOTween.Sequence();
         seq.Append(transform.DOLocalRotate(new Vector3(0, 0, 5), 1f));
         seq.Append(transform.DOLocalRotate(new Vector3(0, 0, -5), 1f));
         seq.SetLoops(-1);
