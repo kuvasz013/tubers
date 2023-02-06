@@ -3,6 +3,13 @@ using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour
 {
+    private GameManager gameManager;
+
+    private void Start()
+    {
+        gameManager = FindObjectOfType<GameManager>();
+    }
+
     public void OnPlaySelected()
     {
         SceneManager.LoadScene(2 + (int)Mathf.Floor(Random.value * 3));
@@ -10,7 +17,7 @@ public class MainMenu : MonoBehaviour
 
     public void OnCreditsSelected()
     {
-        Debug.Log("Credits");
+        SceneManager.LoadScene("Credits");
     }
 
     public void OnQuitSelected()

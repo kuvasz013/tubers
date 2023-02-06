@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
@@ -10,20 +11,15 @@ public class GameManager : MonoBehaviour
     [Header("DO NOT CHANGE THE ORDER HERE")]
     [SerializeField] private List<GameObject> playerPrefabs;
 
-    [HideInInspector]
-    public IList<PlayerConfig> PlayersConfigs { get; set; } = new List<PlayerConfig>();
-
-    public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>();
-
+    [HideInInspector] public IList<PlayerConfig> PlayersConfigs { get; set; } = new List<PlayerConfig>();
+    [HideInInspector] public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>();
     [HideInInspector] public TuberType winner;
-    private bool isLoaded = false;
-    static private TuberType[] tuberTypes = new TuberType[] { TuberType.Potato, TuberType.Carrot, TuberType.Beet, TuberType.Scallion };
+    [HideInInspector] public bool levelLoaded;
 
-
+    private readonly TuberType[] tuberTypes = new TuberType[] { TuberType.Potato, TuberType.Carrot, TuberType.Beet, TuberType.Scallion };
 
     private void Awake()
     {
-        SceneManager.sceneLoaded += OnSceneLoaded;
         var objs = FindObjectsOfType<GameManager>();
         if (objs.Length > 1)
         {
@@ -35,15 +31,28 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Start()
+    {
+        Debug.Log("GAMEMANGER ADD LISTENRE");
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name.StartsWith("Level") && !isLoaded)
+        Debug.Log("ONSCNE LOADEDEEEEEEEEEEEEEEEEEEE");
+        if (!scene.name.StartsWith("Level"))
         {
-            isLoaded = true;
-            if (PlayersConfigs == null || PlayersConfigs.Count == 0)
-            {
-                Debug.Log("PlayerConfigs empty, faling back");
-                PlayersConfigs = new List<PlayerConfig>()
+            ResetManager();
+            return;
+        }
+
+        if (levelLoaded) return;
+        levelLoaded = true;
+
+        if (PlayersConfigs == null || PlayersConfigs.Count == 0)
+        {
+            Debug.Log("PlayerConfigs empty, faling back");
+            PlayersConfigs = new List<PlayerConfig>()
                 {
                     new PlayerConfig()
                     {
@@ -61,30 +70,37 @@ public class GameManager : MonoBehaviour
                     },
                 };
 
-                if (Gamepad.all.Count >= 1)
+            if (Gamepad.all.Count >= 1)
+            {
+                PlayersConfigs.Add(new PlayerConfig()
                 {
-                    PlayersConfigs.Add(new PlayerConfig()
-                    {
-                        playerID = 2,
-                        controlScheme = "controller",
-                        inputDevice = Gamepad.all[0],
-                        tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
-                    });
-                }
-
-                if (Gamepad.all.Count >= 2)
-                {
-                    PlayersConfigs.Add(new PlayerConfig()
-                    {
-                        playerID = 3,
-                        controlScheme = "controller",
-                        inputDevice = Gamepad.all[1],
-                        tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
-                    });
-                }
+                    playerID = 2,
+                    controlScheme = "controller",
+                    inputDevice = Gamepad.all[0],
+                    tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
+                });
             }
-            SpawnAll();
+
+            if (Gamepad.all.Count >= 2)
+            {
+                PlayersConfigs.Add(new PlayerConfig()
+                {
+                    playerID = 3,
+                    controlScheme = "controller",
+                    inputDevice = Gamepad.all[1],
+                    tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
+                });
+            }
         }
+        SpawnAll();
+    }
+
+    private void ResetManager()
+    {
+        Debug.Log("Reset GameManager");
+        PlayersConfigs.Clear();
+        Players.Clear();
+        levelLoaded = false;
     }
 
     public void SetInputEnabled(bool enabled)
@@ -121,9 +137,15 @@ public class GameManager : MonoBehaviour
 
         if (Players.All(x => x.isDead))
         {
-            winner = TuberType.NONE;
-            SceneManager.LoadScene("EndGame");
+            StartCoroutine(KillCoroutine());
         }
+    }
+
+    private IEnumerator KillCoroutine()
+    {
+        yield return new WaitForSeconds(4f);
+        winner = TuberType.NONE;
+        SceneManager.LoadScene("EndGame");
     }
 
     private void Spawn(PlayerConfig config, Vector3 position)
