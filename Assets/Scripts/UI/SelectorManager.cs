@@ -1,24 +1,33 @@
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
-using Unity.VisualScripting;
+using System.Runtime.CompilerServices;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
+using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class SelectorManager : MonoBehaviour
 {
     private GameManager manager;
-    private PlayerInputManager playerInputManager;
     private bool firstWASD = true;
 
     [SerializeField] private Transform emptySelectors;
     [SerializeField] private Transform playerSelectors;
+    [SerializeField] private GameObject countdownPanel;
+    [SerializeField] private TextMeshProUGUI countdownTimer;
+    [SerializeField] private int countdownTimeout = 5;
+    [SerializeField] private GameObject loader;
+    [SerializeField] private Spinner spinner;
+
+    private Coroutine cdCoroutine;
+    private AudioSource source;
+
 
     private void Start()
     {
         manager = FindObjectOfType<GameManager>();
-        playerInputManager = GetComponent<PlayerInputManager>();
+        source = GetComponent<AudioSource>();
     }
 
     public void OnPlayerJoin(PlayerInput input)
@@ -57,5 +66,40 @@ public class SelectorManager : MonoBehaviour
         input.transform.position = emptySelector.transform.position;
         input.transform.localScale = emptySelector.transform.localScale;
         Destroy(emptySelector.gameObject);
+    }
+
+    public void StartCountdown()
+    {
+        countdownTimer.text = countdownTimeout.ToString();
+        countdownPanel.SetActive(true);
+        cdCoroutine = StartCoroutine(Countdown());
+    }
+
+    public void StopCountdown()
+    {
+        if (cdCoroutine != null) StopCoroutine(cdCoroutine);
+        countdownPanel.SetActive(false);
+        countdownTimer.text = countdownTimeout.ToString();
+    }
+
+    private IEnumerator Countdown()
+    {
+        for (var i = countdownTimeout; i >= 0; i--)
+        {
+            countdownTimer.text = i.ToString();
+            source.Play();
+            yield return new WaitForSeconds(1f);
+        }
+
+        loader.SetActive(true);
+        spinner.StartSpinner();
+
+        var players = FindObjectsOfType<SelectorController>();
+        foreach (var player in players)
+        {
+            player.enabled= false;
+        }
+
+        SceneManager.LoadSceneAsync(2 + (int)Mathf.Floor(Random.value * 3));
     }
 }
