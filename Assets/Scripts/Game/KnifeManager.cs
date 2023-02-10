@@ -1,4 +1,6 @@
 using DG.Tweening;
+using DG.Tweening.Core;
+using DG.Tweening.Plugins.Options;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,6 +19,7 @@ public class KnifeManager : MonoBehaviour
     [SerializeField] private GameObject killPlane;
 
     private Coroutine _knifeCoroutine;
+    private TweenerCore<Vector3, Vector3, VectorOptions> _knifeTween;
     private readonly IList<GameObject> _knives = new List<GameObject>();
     private bool _knifeMirrored = false;
     private AudioSource source;
@@ -36,6 +39,8 @@ public class KnifeManager : MonoBehaviour
     {
         StopCoroutine(_knifeCoroutine);
         _knifeCoroutine = null;
+        killPlane.SetActive(false);
+        _knifeTween.Kill(complete: false);
     }
 
     private IEnumerator KnifeRoutine()
@@ -60,7 +65,7 @@ public class KnifeManager : MonoBehaviour
             _knifeMirrored = !_knifeMirrored;
 
             source.Play();
-            knife.transform.DOMoveY(knifeTarget, knifeStrikeSeconds).OnComplete(() =>
+            _knifeTween = knife.transform.DOMoveY(knifeTarget, knifeStrikeSeconds).OnComplete(() =>
             {
                 knife.transform.DOMoveY(knifeHeight, knifeStrikeSeconds);
                 if (_knives.Count <= keepKnifes) return;

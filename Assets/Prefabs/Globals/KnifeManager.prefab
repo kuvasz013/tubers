@@ -45,8 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c9c627e20bb138f489bcb02724d5c0f7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  secondsPerKnife: 1
-  firstKnifeDelay: 5
+  secondsPerKnife: 0.5
+  firstKnifeDelay: 3
   knifePrefab: {fileID: 1756967995458954, guid: 24b46eeea06b211429a758ec1c303a8e, type: 3}
   knifeHeight: 50
   knifeTarget: 6

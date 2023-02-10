@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -12,15 +11,13 @@ public class GameManager : MonoBehaviour
     [Header("DO NOT CHANGE THE ORDER HERE")]
     [SerializeField] private List<GameObject> playerPrefabs;
 
-    [HideInInspector] public IList<PlayerConfig> PlayersConfigs { get; set; } = new List<PlayerConfig>();
-    [HideInInspector] public IList<PlayerConfig> Players { get; set; } = new List<PlayerConfig>();
-    [HideInInspector] public TuberType winner;
+    [HideInInspector] public static IList<PlayerConfig> PlayersConfigs { get; private set; } = new List<PlayerConfig>();
+    [HideInInspector] public static IList<PlayerConfig> Players { get; private set; } = new List<PlayerConfig>();
+    public static TuberType Winner { get; set; }
     [HideInInspector] public bool levelLoaded;
 
     [Header("Set this to true when testing level in isolation")]
-    [SerializeField] public bool spawnFallback;
-
-    private readonly TuberType[] tuberTypes = new TuberType[] { TuberType.Potato, TuberType.Carrot, TuberType.Beet, TuberType.Scallion };
+    [SerializeField] private bool spawnFallback;
 
     private void Awake()
     {
@@ -34,7 +31,7 @@ public class GameManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
         }
 
-        if(Application.isEditor && spawnFallback)
+        if (Application.isEditor && spawnFallback)
         {
             Debug.Log("Running in Unity Editor, trigger scene loaded event");
             OnSceneLoaded(SceneManager.GetActiveScene(), LoadSceneMode.Single);
@@ -48,66 +45,20 @@ public class GameManager : MonoBehaviour
 
     void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (!scene.name.StartsWith("Level"))
+        if (scene.name.StartsWith("Level"))
         {
-            ResetManager();
-            return;
+            if (levelLoaded) return;
+            levelLoaded = true;
+            SpawnAll();
         }
-
-        if (levelLoaded) return;
-        levelLoaded = true;
-
-        if (PlayersConfigs == null || PlayersConfigs.Count == 0)
-        {
-            Debug.Log("PlayerConfigs empty, faling back");
-            PlayersConfigs = new List<PlayerConfig>()
-                {
-                    new PlayerConfig()
-                    {
-                        playerID = 0,
-                        controlScheme = "arrows",
-                        inputDevice = Keyboard.current,
-                        tuberType = tuberTypes[(int) Mathf.Floor(UnityEngine.Random.value * 4)],
-                    },
-                    new PlayerConfig()
-                    {
-                        playerID = 1,
-                        controlScheme = "wasd",
-                        inputDevice = Keyboard.current,
-                        tuberType = tuberTypes[(int) Mathf.Floor(UnityEngine.Random.value * 4)],
-                    },
-                };
-
-            if (Gamepad.all.Count >= 1)
-            {
-                PlayersConfigs.Add(new PlayerConfig()
-                {
-                    playerID = 2,
-                    controlScheme = "controller",
-                    inputDevice = Gamepad.all[0],
-                    tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
-                });
-            }
-
-            if (Gamepad.all.Count >= 2)
-            {
-                PlayersConfigs.Add(new PlayerConfig()
-                {
-                    playerID = 3,
-                    controlScheme = "controller",
-                    inputDevice = Gamepad.all[1],
-                    tuberType = tuberTypes[(int)Mathf.Floor(UnityEngine.Random.value * 4)],
-                });
-            }
-        }
-        SpawnAll();
     }
 
-    private void ResetManager()
+    public void ResetManager()
     {
-        Debug.Log("Reset GameManager");
-        PlayersConfigs.Clear();
-        Players.Clear();
+        Debug.Log($"Reset GameManager, winner stay: {Winner}");
+        Debug.Log($"Configs deleted: {PlayersConfigs.Count}");
+        PlayersConfigs = new List<PlayerConfig>();
+        Players = new List<PlayerConfig>();
         levelLoaded = false;
     }
 
@@ -152,7 +103,8 @@ public class GameManager : MonoBehaviour
     private IEnumerator KillCoroutine()
     {
         yield return new WaitForSeconds(4f);
-        winner = TuberType.NONE;
+        Debug.Log("Everyone is dead, grandma wins!");
+        Winner = TuberType.NONE;
         SceneManager.LoadScene("EndGame");
     }
 

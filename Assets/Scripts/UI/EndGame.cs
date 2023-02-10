@@ -20,10 +20,7 @@ public class EndGame : MonoBehaviour
 
     private void Start()
     {
-        var manager = FindObjectOfType<GameManager>();
-        var winner = manager == null ? TuberType.NONE : manager.winner;
-
-        if (winner == TuberType.NONE)
+        if (GameManager.Winner == TuberType.NONE)
         {
             winText.SetActive(false);
             loseText.SetActive(true);
@@ -31,20 +28,22 @@ public class EndGame : MonoBehaviour
         }
         else
         {
-            Debug.Log($"{winner} | {tuberNames[(int)winner]} | {winnerSprites[(int)winner].name}");
+            Debug.Log($"{GameManager.Winner} | {tuberNames[(int)GameManager.Winner]} | {winnerSprites[(int)GameManager.Winner].name}");
             loseText.SetActive(false);
             winText.SetActive(true);
-            soupImg.sprite = soupSprites[(int)winner];
+            soupImg.sprite = soupSprites[(int)GameManager.Winner];
 
             winnerImg.gameObject.SetActive(true);
-            winnerName.text = tuberNames[(int)winner];
-            winnerImg.sprite = winnerSprites[(int)winner];
+            winnerName.text = tuberNames[(int)GameManager.Winner];
+            winnerImg.sprite = winnerSprites[(int)GameManager.Winner];
             winnerImg.SetNativeSize();
         }
     }
 
     public void OnBackToMenu()
     {
+        var manager = FindObjectOfType<GameManager>();
+        manager.ResetManager();
         SceneManager.LoadScene(0);
     }
 }

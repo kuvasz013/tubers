@@ -46,7 +46,7 @@ public class SelectorManager : MonoBehaviour
     {
         if (input.currentControlScheme != ControlSchemes.Controller)
         {
-            if (manager.PlayersConfigs.Any(pc => pc.controlScheme == input.currentControlScheme)) return;
+            if (GameManager.PlayersConfigs.Any(pc => pc.controlScheme == input.currentControlScheme)) return;
         }
 
         var config = new PlayerConfig()
@@ -59,7 +59,8 @@ public class SelectorManager : MonoBehaviour
             isDead = false,
         };
 
-        manager.PlayersConfigs.Add(config);
+        GameManager.PlayersConfigs.Add(config);
+        Debug.Log($"Add new Player. ID: {config.playerID}, input: {config.controlScheme}");
         input.transform.SetParent(playerSelectors);
 
         var emptySelector = emptySelectors.GetChild(0);
@@ -100,6 +101,6 @@ public class SelectorManager : MonoBehaviour
             player.enabled= false;
         }
 
-        SceneManager.LoadSceneAsync(2 + (int)Mathf.Floor(Random.value * 3));
+        SceneManager.LoadSceneAsync((int)Mathf.Ceil(Random.value * 3));
     }
 }

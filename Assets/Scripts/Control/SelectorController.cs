@@ -62,11 +62,11 @@ public class SelectorController : MonoBehaviour, SelectorControls.ISelectorActio
         {
             if (input.currentControlScheme == ControlSchemes.Arrows)
             {
-                if (ArrowsKeys.Contains(kControl.keyCode) && !manager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.Arrows))
+                if (ArrowsKeys.Contains(kControl.keyCode) && !GameManager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.Arrows))
                 {
                     selectorManager.AddNewPlayer(input);
                 }
-                else if (WASDKeys.Contains(kControl.keyCode) && !manager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.WASD))
+                else if (WASDKeys.Contains(kControl.keyCode) && !GameManager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.WASD))
                 {
                     var prefab = selectorManager.GetComponent<PlayerInputManager>().playerPrefab;
                     var input = PlayerInput.Instantiate(prefab, controlScheme: ControlSchemes.WASD, pairWithDevice: Keyboard.current);
@@ -75,11 +75,11 @@ public class SelectorController : MonoBehaviour, SelectorControls.ISelectorActio
             }
             else if (input.currentControlScheme == ControlSchemes.WASD)
             {
-                if (WASDKeys.Contains(kControl.keyCode) && !manager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.WASD))
+                if (WASDKeys.Contains(kControl.keyCode) && !GameManager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.WASD))
                 {
                     selectorManager.AddNewPlayer(input);
                 }
-                else if (ArrowsKeys.Contains(kControl.keyCode) && !manager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.Arrows))
+                else if (ArrowsKeys.Contains(kControl.keyCode) && !GameManager.PlayersConfigs.Any(pc => pc.controlScheme == ControlSchemes.Arrows))
                 {
                     var prefab = selectorManager.GetComponent<PlayerInputManager>().playerPrefab;
                     var input = PlayerInput.Instantiate(prefab, controlScheme: ControlSchemes.Arrows, pairWithDevice: Keyboard.current);
@@ -146,7 +146,7 @@ public class SelectorController : MonoBehaviour, SelectorControls.ISelectorActio
             Debug.Log($"Player{input.playerIndex + 1} selected {tuberNames[(int)tuber]}");
             buttonText.text = "Back";
             Ready = true;
-            manager.PlayersConfigs.First(pc => pc.playerID == input.playerIndex).tuberType = tuber;
+            GameManager.PlayersConfigs.First(pc => pc.playerID == input.playerIndex).tuberType = tuber;
             checkmark.SetActive(true);
         }
         else

@@ -828,10 +828,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3471882365344651340, guid: 7d06bf2479afa2a4cb28e2992ff18255, type: 3}
-      propertyPath: spawnFallback
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 3471882365344651341, guid: 7d06bf2479afa2a4cb28e2992ff18255, type: 3}
       propertyPath: m_RootOrder
       value: 0
