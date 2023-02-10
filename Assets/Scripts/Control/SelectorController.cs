@@ -135,7 +135,12 @@ public class SelectorController : MonoBehaviour, SelectorControls.ISelectorActio
         if (input == null || !context.started) return;
         if (input.currentControlScheme == ControlSchemes.Arrows && !ArrowsKeys.Contains(((KeyControl)context.control).keyCode)) return;
         if (input.currentControlScheme == ControlSchemes.WASD && !WASDKeys.Contains(((KeyControl)context.control).keyCode)) return;
+        OnReady();
+    }
 
+    // This is public to be accessible to UI Buttons
+    public void OnReady()
+    {
         if (!Ready)
         {
             Debug.Log($"Player{input.playerIndex + 1} selected {tuberNames[(int)tuber]}");
@@ -160,7 +165,8 @@ public class SelectorController : MonoBehaviour, SelectorControls.ISelectorActio
         if (controllers.All(c => c.Ready))
         {
             selectorManager.StartCountdown();
-        } else
+        }
+        else
         {
             selectorManager.StopCountdown();
         }
@@ -179,11 +185,26 @@ public class SelectorController : MonoBehaviour, SelectorControls.ISelectorActio
 
         if (Mathf.Abs(value.x) > Mathf.Abs(value.y))
         {
-            if (value.x > 0 && (int)tuber < 3) tuber++;
-            else if (value.x < 0 && tuber > 0) tuber--;
-            UpdateUI();
+            if (value.x > 0) NextTuber();
+            else if (value.x < 0) PreviousTuber();
         }
+    }
 
+    //These are here to be accessible from UI Buttons
+    public void NextTuber()
+    {
+        if ((int)tuber >= 3) return;
+        tuber++;
+        UpdateUI();
+        source.clip = clickSound;
+        source.Play();
+    }
+
+    public void PreviousTuber()
+    {
+        if (tuber <= 0) return;
+        tuber--;
+        UpdateUI();
         source.clip = clickSound;
         source.Play();
     }
