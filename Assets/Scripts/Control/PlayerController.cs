@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using static Controls;
@@ -14,8 +15,10 @@ public class PlayerController : MonoBehaviour, IPlayerActions
     [SerializeField] private float damping;
     [SerializeField] public TuberType tuberType;
     [SerializeField] public int playerId;
+    [SerializeField] private GameObject mesh;
+    [SerializeField] public List<ParticleSystem> emitters;
 
-    [SerializeField] public GameObject mesh;
+    public PlayerConfig PlayerConfig { get; set; }
 
     private Rigidbody _rb;
     private Vector2 _movementVector = Vector2.zero;
@@ -31,11 +34,13 @@ public class PlayerController : MonoBehaviour, IPlayerActions
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        if (PlayerConfig.isDead) return;
         _movementVector = context.ReadValue<Vector2>();
     }
 
     public void OnJump(InputAction.CallbackContext context)
     {
+        if (PlayerConfig.isDead) return;
         if (context.action.triggered && GetGrounded())
         {
             _audio.PlayJump();
@@ -45,6 +50,7 @@ public class PlayerController : MonoBehaviour, IPlayerActions
 
     void FixedUpdate()
     {
+        if (PlayerConfig.isDead) return;
         var velocityXZ = new Vector2(_rb.velocity.x, _rb.velocity.z);
 
         _rb.AddForce(-new Vector3(velocityXZ.x, 0, velocityXZ.y) * damping);
@@ -69,6 +75,7 @@ public class PlayerController : MonoBehaviour, IPlayerActions
 
     bool GetGrounded()
     {
+        if (PlayerConfig.isDead) return false;
         var hits = Physics.RaycastAll(groundCheck.position, -Vector3.up, groundCheckDistance, LayerMask.GetMask("Ground"));
         return hits.Length > 0;
     }

@@ -91,8 +91,11 @@ public class GameManager : MonoBehaviour
     public void Kill(int playerID)
     {
         var player = Players.First(x => x.playerID == playerID);
+        if (player.isDead) return;
         player.isDead = true;
-        player.playerInput.gameObject.GetComponent<PlayerController>().Disable();
+        var pc = player.playerInput.gameObject.GetComponent<PlayerController>();
+        pc.Disable();
+        pc.emitters.ForEach(e => e.Play());
 
         if (Players.All(x => x.isDead))
         {
@@ -114,6 +117,7 @@ public class GameManager : MonoBehaviour
         player.transform.SetPositionAndRotation(position, Quaternion.LookRotation(Vector3.forward));
         config.playerInput = player;
         config.playerInput.gameObject.GetComponent<PlayerController>().playerId = config.playerID;
+        config.playerInput.gameObject.GetComponent<PlayerController>().PlayerConfig = config;
         Debug.Log($"Spawn Player{config.playerID}, TuberType: {config.tuberType}, ControlScheme: {config.controlScheme}");
         Players.Add(config);
     }
